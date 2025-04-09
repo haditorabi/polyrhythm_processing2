@@ -12,7 +12,7 @@ public class SpiralRenderer {
   }
 
   public void render(List<VisualNote> circles
-  //, Piano piano
+  , Piano piano
   , LineToTop line
   ) {
     float[] metaballData = new float[circles.size() * 3];
@@ -41,7 +41,7 @@ public class SpiralRenderer {
     buffer.rect(0, 0, width, height);
     buffer.resetShader();
 
-    //piano.draw(buffer);
+    piano.draw(buffer);
     line.draw(buffer);
     buffer.endDraw();
 

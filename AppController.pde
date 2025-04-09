@@ -1,7 +1,6 @@
 public class AppController {
-  //private NoteSpiralManager noteSpiralManager;
+  private NoteSpiralManager noteSpiralManager;
   private boolean isPaused = false;
-  NoteSpiralManager noteSpiralManager;
 
   public AppController() {
     noteSpiralManager = new NoteSpiralManager();

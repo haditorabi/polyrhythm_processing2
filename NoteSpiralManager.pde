@@ -1,8 +1,8 @@
 ThemeLibrary themeLibrary;
 public class NoteSpiralManager {
   private final List<VisualNote> visualNotes;
-  //private final Piano piano;
-  //private final MidiSender midi;
+  private final Piano piano;
+  private final MidiSender midi;
   private final SpiralRenderer spiralRenderer;
   private final LineToTop centerLine;
   private final Theme theme;
@@ -13,8 +13,8 @@ public class NoteSpiralManager {
   public NoteSpiralManager() {
     AllowedNotes map = new AllowedNotes();
     visualNotes = map.getVisualNotes();
-    //piano = new Piano();
-    //midi = new MidiSender("ProcessingToDAW", piano);
+    piano = new Piano();
+    midi = new MidiSender("ProcessingToDAW", piano);
     theme = getRandomTheme();
 
     centerLine = new LineToTop(width / 2, (height - 120) / 2);
@@ -34,7 +34,7 @@ public class NoteSpiralManager {
       circle.updatePosition(tf, i, visualNotes.size(), centerX, centerY, rotationAngle);
 
       if (abs(circle.x - centerX) < threshold && abs(circle.y) < height / 2 && !circle.hasPlayed) {
-        //midi.sendNote(circle.midi, 100, 1400);
+        midi.sendNote(circle.midi, 100, 1400);
         circle.hasPlayed = true;
       }
 
@@ -44,10 +44,10 @@ public class NoteSpiralManager {
     }
 
     spiralRenderer.render(visualNotes
-    //, piano
+    , piano
     , centerLine
     );
-    //midi.update();
+    midi.update();
   }
 
   private Theme getRandomTheme() {

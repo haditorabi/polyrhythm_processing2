@@ -17,7 +17,6 @@ public class NoteMap {
             }
         }
     }
-
     // Method to get the MIDI number for a given note name
     public Integer getMidiNumber(String noteName) {
         return noteMap.get(noteName);

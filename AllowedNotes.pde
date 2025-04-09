@@ -6,6 +6,8 @@ public class AllowedNotes {
   private final String[] chromatic = {
     "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"
   };
+
+
   public AllowedNotes() {
     allowedNames = new ArrayList<>();
     noteMap = new NoteMap();
@@ -26,7 +28,9 @@ public class AllowedNotes {
 
     for (int midi = fromMidi; midi <= toMidi; midi++) {
       String noteName = chromatic[midi % 12] + (midi / 12);
-      allowedNames.add(noteName);
+      if (!noteName.contains("#")) {
+        allowedNames.add(noteName);
+      }
     }
   }
 
