@@ -23,14 +23,14 @@ public class SpiralRenderer {
       metaballData[i * 3] = c.x;
       metaballData[i * 3 + 1] = c.y;
       if(c.isGlowing) {
-        metaballData[i * 3 + 2] = 20;
+        metaballData[i * 3 + 2] = 30;
       } else {
         metaballData[i * 3 + 2] = 10;
       }
       
 
-      float[] rgb = themeUtils.hexToRGB(theme.colors[0]);
-      float[] rgb2 = themeUtils.hexToRGB(theme.colors[2]);
+      float[] rgb = themeUtils.hexToRGB(theme.colors[1]);
+      float[] rgb2 = themeUtils.hexToRGB(theme.colors[3]);
       if(c.isGlowing) {
         colorData[i * 3] = rgb[0];
         colorData[i * 3 + 1] = rgb[1];
@@ -52,7 +52,10 @@ public class SpiralRenderer {
 
     buffer.rect(0, 0, width, height);
     buffer.resetShader();
-
+    for (int i = 0; i < circles.size(); i++) {
+      VisualNote c = circles.get(i);
+      c.draw(buffer);
+    }
     piano.draw(buffer);
     line.draw(buffer);
     buffer.endDraw();

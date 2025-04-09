@@ -25,7 +25,7 @@ class Piano {
     }
 
     whiteIndex = 0;
-    for (int midi = 21; midi < 108; midi++) {
+    for (int midi = 21; midi <= 108; midi++) {
       String noteName = getNoteName(midi);
       boolean isBlack = noteName.contains("#");
 

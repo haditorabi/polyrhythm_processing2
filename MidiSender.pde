@@ -4,7 +4,7 @@ import java.util.HashMap;
 class MidiSender {
   MidiDevice outputDevice;
   Receiver midiOut;
-  HashMap<String, Integer> noteMap;
+  private NoteMap noteMap;
   ArrayList<MidiNoteEvent> activeNotes = new ArrayList<MidiNoteEvent>();
   Piano piano;
   List<VisualNote> visualNotes;
@@ -12,7 +12,7 @@ class MidiSender {
   MidiSender(String deviceName, Piano pianoRef, List<VisualNote> visualNotesRef) {
   piano = pianoRef;
   visualNotes = visualNotesRef;
-  initNoteMap();  // build the note map first
+  noteMap = new NoteMap();
 
     try {
       MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
@@ -38,7 +38,7 @@ class MidiSender {
 
   // 🎵 New method for note names like "C4", "G#3", etc.
   void sendNote(String noteName, int velocity, int durationMillis) {
-    Integer note = noteMap.get(noteName.toUpperCase());
+    Integer note = noteMap.getMidiNumber(noteName.toUpperCase());
     if (note != null) {
       sendNote(note, velocity, durationMillis);
     } else {
@@ -100,18 +100,6 @@ class MidiSender {
       if (key.midi == midi) {
         key.setGlowing(state);
         break;
-      }
-    }
-  }
-  void initNoteMap() {
-    noteMap = new HashMap<String, Integer>();
-    String[] notes = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
-    for (int octave = 0; octave <= 8; octave++) {
-      for (int i = 0; i < notes.length; i++) {
-        int midiNumber = octave * 12 + i;
-        if (midiNumber >= 12 && midiNumber <= 108) {
-          noteMap.put(notes[i] + octave, midiNumber);
-        }
       }
     }
   }

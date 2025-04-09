@@ -16,14 +16,13 @@ public class NoteSpiralManager {
     piano = new Piano();
     midi = new MidiSender("ProcessingToDAW", piano, visualNotes);
     theme = getRandomTheme();
-
     centerLine = new LineToTop(width / 2, (height - 120) / 2);
     spiralRenderer = new SpiralRenderer(width, height, theme);
   }
 
   public void updateAndDraw() {
     tf += 0.0001;
-    rotationAngle += 0.0005;
+    rotationAngle += 0.0005;  // Gradually increment the rotation angle for smooth rotation
 
     float centerX = width / 2;
     float centerY = (height - 120) / 2;
@@ -34,7 +33,7 @@ public class NoteSpiralManager {
       circle.updatePosition(tf, i, visualNotes.size(), centerX, centerY, rotationAngle);
 
       if (abs(circle.x - centerX) < threshold && abs(circle.y) < (height - 120) / 2 && !circle.hasPlayed) {
-        midi.sendNote(circle.midi, 100, 1400);
+        midi.sendNote(circle.noteName, 100, 1400);
         circle.hasPlayed = true;
       }
 
@@ -44,9 +43,9 @@ public class NoteSpiralManager {
     }
 
     spiralRenderer.render(visualNotes
-    , piano
-    , centerLine
-    );
+      , piano
+      , centerLine
+      );
     midi.update();
   }
 

@@ -25,9 +25,8 @@ public class AllowedNotes {
   private void add(String from, String to) {
     int fromMidi = noteMap.getMidiNumber(from);
     int toMidi = noteMap.getMidiNumber(to);
-
     for (int midi = fromMidi; midi <= toMidi; midi++) {
-      String noteName = chromatic[midi % 12] + (midi / 12);
+      String noteName = chromatic[midi % 12] + ((midi / 12) - 1);
       if (!noteName.contains("#")) {
         allowedNames.add(noteName);
       }
