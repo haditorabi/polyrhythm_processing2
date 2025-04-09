@@ -1,9 +1,9 @@
 class ThemeLibrary {
   Theme getRandom() {
     Theme[] themes = {
-      //new Theme("Night Sky", new String[]{"#45217C", "#0799F2", "#FFFFFF"}, "#150832"),
+      new Theme("Night Sky", new String[]{"#45217C", "#0799F2", "#FFFFFF"}, "#150832"),
       //new Theme("Fireball", new String[]{"#581845", "#900C3F", "#C70039", "#FF5733", "#FFC30F"}, "#1A0633"),
-      new Theme("Oceania", new String[]{"#77C39C", "#2F5E36", "#55ABA5", "#2D7063", "#3F6829", "#44A872", "#215964", "#CDEDAE"}, "#162A25"),
+      //new Theme("Oceania", new String[]{"#77C39C", "#2F5E36", "#55ABA5", "#2D7063", "#3F6829", "#44A872", "#215964", "#CDEDAE"}, "#162A25"),
       //new Theme("Plankton", new String[]{"#BCE784", "#5DD39E", "#348AA7", "#525174", "#513B56"}, "#051A0A"),
       //new Theme("Fireflies", new String[]{"#B7F0AD", "#D2FF96", "#EDDF7A", "#E8D33F", "#D17B0F"}, "#141115"),
       //new Theme("Green Planet", new String[]{"#91CB3E", "#4F772D", "#31572C", "#CEFF1A"}, "#1A181B"),

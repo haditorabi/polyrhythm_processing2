@@ -17,20 +17,20 @@ public class SpiralRenderer {
   ) {
     float[] metaballData = new float[circles.size() * 3];
     float[] colorData = new float[circles.size() * 3];
-
+    int circlesSize = circles.size();
     for (int i = 0; i < circles.size(); i++) {
       VisualNote c = circles.get(i);
       metaballData[i * 3] = c.x;
       metaballData[i * 3 + 1] = c.y;
       if(c.isGlowing) {
-        metaballData[i * 3 + 2] = 30;
+        metaballData[i * 3 + 2] = 20.0f ;
       } else {
-        metaballData[i * 3 + 2] = 10;
+        metaballData[i * 3 + 2] = 10.0f;
       }
       
 
       float[] rgb = themeUtils.hexToRGB(theme.colors[1]);
-      float[] rgb2 = themeUtils.hexToRGB(theme.colors[3]);
+      float[] rgb2 = themeUtils.hexToRGB(theme.colors[2]);
       if(c.isGlowing) {
         colorData[i * 3] = rgb[0];
         colorData[i * 3 + 1] = rgb[1];

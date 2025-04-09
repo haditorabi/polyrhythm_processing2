@@ -29,10 +29,10 @@ public class VisualNote {
     pg.noStroke();
     pg.ellipse(x, y, size, size);
 
-    pg.fill(255);
-    pg.textAlign(CENTER, CENTER);
-    pg.textSize(11);
-    pg.text(noteName, x, y - size / 2 - 10);
+    //pg.fill(255);
+    //pg.textAlign(CENTER, CENTER);
+    //pg.textSize(11);
+    //pg.text(noteName, x, y - size / 2 - 10);
   }
 
   public void setGlowing(boolean state) {
@@ -42,7 +42,9 @@ public class VisualNote {
   public void setHasPlayed(boolean state) {
     hasPlayed = state;
   }
-
+  public void setSize(int circleSize) {
+    size = circleSize;
+  }
   public boolean isReadyToPlay(float centerX, float centerY, float threshold) {
     return abs(x - centerX) < threshold && abs(y) < height / 2 && !hasPlayed;
   }

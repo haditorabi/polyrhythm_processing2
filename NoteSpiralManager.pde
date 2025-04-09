@@ -21,8 +21,8 @@ public class NoteSpiralManager {
   }
 
   public void updateAndDraw() {
-    tf += 0.0001;
-    rotationAngle += 0.0005;  // Gradually increment the rotation angle for smooth rotation
+    tf += 0.00001;
+    rotationAngle += 0.009;  // Gradually increment the rotation angle for smooth rotation
 
     float centerX = width / 2;
     float centerY = (height - 120) / 2;
@@ -32,7 +32,7 @@ public class NoteSpiralManager {
       VisualNote circle = visualNotes.get(i);
       circle.updatePosition(tf, i, visualNotes.size(), centerX, centerY, rotationAngle);
 
-      if (abs(circle.x - centerX) < threshold && abs(circle.y) < (height - 120) / 2 && !circle.hasPlayed) {
+      if (abs(circle.x - centerX - 4) < threshold && abs(circle.y) < (height - 120) / 2 && !circle.hasPlayed) {
         midi.sendNote(circle.noteName, 100, 1400);
         circle.hasPlayed = true;
       }
