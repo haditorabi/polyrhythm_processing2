@@ -22,12 +22,24 @@ public class SpiralRenderer {
       VisualNote c = circles.get(i);
       metaballData[i * 3] = c.x;
       metaballData[i * 3 + 1] = c.y;
-      metaballData[i * 3 + 2] = 20;
+      if(c.isGlowing) {
+        metaballData[i * 3 + 2] = 20;
+      } else {
+        metaballData[i * 3 + 2] = 10;
+      }
+      
 
       float[] rgb = themeUtils.hexToRGB(theme.colors[0]);
-      colorData[i * 3] = rgb[0];
-      colorData[i * 3 + 1] = rgb[1];
-      colorData[i * 3 + 2] = rgb[2];
+      float[] rgb2 = themeUtils.hexToRGB(theme.colors[2]);
+      if(c.isGlowing) {
+        colorData[i * 3] = rgb[0];
+        colorData[i * 3 + 1] = rgb[1];
+        colorData[i * 3 + 2] = rgb[2];
+      } else {
+        colorData[i * 3] = rgb2[0];
+        colorData[i * 3 + 1] = rgb2[1];
+        colorData[i * 3 + 2] = rgb2[2];
+      }
     }
 
     buffer.beginDraw();

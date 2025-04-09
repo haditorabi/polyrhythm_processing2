@@ -7,14 +7,14 @@ public class NoteSpiralManager {
   private final LineToTop centerLine;
   private final Theme theme;
 
-  private float tf = 10;
+  private float tf = 0;
   private float rotationAngle = 0;
 
   public NoteSpiralManager() {
     AllowedNotes map = new AllowedNotes();
     visualNotes = map.getVisualNotes();
     piano = new Piano();
-    midi = new MidiSender("ProcessingToDAW", piano);
+    midi = new MidiSender("ProcessingToDAW", piano, visualNotes);
     theme = getRandomTheme();
 
     centerLine = new LineToTop(width / 2, (height - 120) / 2);
@@ -33,7 +33,7 @@ public class NoteSpiralManager {
       VisualNote circle = visualNotes.get(i);
       circle.updatePosition(tf, i, visualNotes.size(), centerX, centerY, rotationAngle);
 
-      if (abs(circle.x - centerX) < threshold && abs(circle.y) < height / 2 && !circle.hasPlayed) {
+      if (abs(circle.x - centerX) < threshold && abs(circle.y) < (height - 120) / 2 && !circle.hasPlayed) {
         midi.sendNote(circle.midi, 100, 1400);
         circle.hasPlayed = true;
       }

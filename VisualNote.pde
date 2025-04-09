@@ -5,7 +5,7 @@ public class VisualNote {
   private float size = 8;
   private color noteColor = color(255, 200);
   private boolean hasPlayed = false;
-  //private GlowEffect glow = new GlowEffect();
+  private boolean isGlowing = false;
 
   public VisualNote(String name, int midi) {
     this.noteName = name;
@@ -24,8 +24,6 @@ public class VisualNote {
   }
 
   public void draw(PGraphics pg) {
-    //glow.update();
-    //glow.draw(pg, x, y, size);
 
     pg.fill(noteColor);
     pg.noStroke();
@@ -37,9 +35,8 @@ public class VisualNote {
     pg.text(noteName, x, y - size / 2 - 10);
   }
 
-  public void triggerGlow() {
-    //glow.trigger();
-    hasPlayed = true;
+  public void setGlowing(boolean state) {
+    isGlowing = state;
   }
 
   public void setHasPlayed(boolean state) {

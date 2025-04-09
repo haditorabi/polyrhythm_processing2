@@ -11,7 +11,7 @@ public class AllowedNotes {
   public AllowedNotes() {
     allowedNames = new ArrayList<>();
     noteMap = new NoteMap();
-    //add("A0", "B0");
+    add("A0", "B0");
     add("C1", "B1");
     add("C2", "B2");
     add("C3", "B3");

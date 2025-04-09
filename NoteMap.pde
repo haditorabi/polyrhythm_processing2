@@ -11,7 +11,7 @@ public class NoteMap {
         for (int octave = 0; octave <= 8; octave++) {
             for (int i = 0; i < notes.length; i++) {
                 int midiNumber = octave * 12 + i;
-                if (midiNumber >= 12 && midiNumber <= 108) {
+                if (midiNumber >= 0 && midiNumber <= 108) {
                     noteMap.put(notes[i] + octave, midiNumber);
                 }
             }

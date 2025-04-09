@@ -7,9 +7,12 @@ class MidiSender {
   HashMap<String, Integer> noteMap;
   ArrayList<MidiNoteEvent> activeNotes = new ArrayList<MidiNoteEvent>();
   Piano piano;
-  MidiSender(String deviceName, Piano pianoRef) {
-    piano = pianoRef;
-    initNoteMap();  // build the note map first
+  List<VisualNote> visualNotes;
+
+  MidiSender(String deviceName, Piano pianoRef, List<VisualNote> visualNotesRef) {
+  piano = pianoRef;
+  visualNotes = visualNotesRef;
+  initNoteMap();  // build the note map first
 
     try {
       MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
@@ -48,6 +51,7 @@ class MidiSender {
     sendNoteOn(0, note, velocity);
     activeNotes.add(new MidiNoteEvent(note, velocity, 0, durationMillis));
     if (piano != null) piano.setKeyActive(note, true);
+    setVisualNoteActive(note, true);
   }
 
   void sendNoteOn(int channel, int pitch, int velocity) {
@@ -66,6 +70,7 @@ class MidiSender {
       msg.setMessage(ShortMessage.NOTE_OFF, channel, pitch, velocity);
       midiOut.send(msg, -1);
       if (piano != null) piano.setKeyActive(pitch, false);
+      setVisualNoteActive(pitch, false);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -90,8 +95,14 @@ class MidiSender {
       e.printStackTrace();
     }
   }
-
-  // 🎼 Note name → MIDI map generator
+  void setVisualNoteActive(int midi, boolean state) {
+    for (VisualNote key : visualNotes) {
+      if (key.midi == midi) {
+        key.setGlowing(state);
+        break;
+      }
+    }
+  }
   void initNoteMap() {
     noteMap = new HashMap<String, Integer>();
     String[] notes = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
