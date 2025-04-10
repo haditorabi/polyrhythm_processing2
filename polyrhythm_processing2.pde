@@ -1,7 +1,10 @@
+import controlP5.*;
+ControlP5 cp5;
 AppController app;
 
 void setup() {
-  app = new AppController();
+  cp5 = new ControlP5(this);
+  app = new AppController(cp5);
   app.setup();
 }
 

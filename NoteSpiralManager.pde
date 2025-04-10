@@ -1,4 +1,9 @@
 ThemeLibrary themeLibrary;
+ 
+float tfRate = 0.00001f;
+float rotationAngleRate = 0.009f;
+boolean isGuiVisible = true;
+
 public class NoteSpiralManager {
   private final List<VisualNote> visualNotes;
   private final Piano piano;
@@ -9,8 +14,24 @@ public class NoteSpiralManager {
 
   private float tf = 0;
   private float rotationAngle = 0;
-
-  public NoteSpiralManager() {
+  
+  public NoteSpiralManager(ControlP5 cp5) {
+    
+    cp5.addSlider("tfRate")
+     .setPosition(20, 20)
+     .setSize(200, 20)
+     .setRange(0.0, 0.0003)
+     .setValue(tfRate)
+     .setDecimalPrecision(6)
+     .setLabel("TF Value");
+    cp5.addSlider("rotationAngleRate")
+       .setPosition(20, 60)
+       .setSize(200, 20)
+       .setRange(0.0, 0.1)
+       .setValue(rotationAngleRate)
+       .setDecimalPrecision(6)
+       .setLabel("Rotation Angle");
+       
     AllowedNotes map = new AllowedNotes();
     visualNotes = map.getVisualNotes();
     piano = new Piano();
@@ -21,9 +42,9 @@ public class NoteSpiralManager {
   }
 
   public void updateAndDraw() {
-    tf += 0.00001;
-    rotationAngle += 0.009;  // Gradually increment the rotation angle for smooth rotation
-
+    tf += tfRate;
+    rotationAngle += rotationAngleRate;  // Gradually increment the rotation angle for smooth rotation
+    println(rotationAngleRate);
     float centerX = width / 2;
     float centerY = (height - 120) / 2;
     float threshold = 8;
