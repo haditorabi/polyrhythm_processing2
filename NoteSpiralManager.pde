@@ -3,6 +3,7 @@ ThemeLibrary themeLibrary;
 float tfRate = 0.00001f;
 float rotationAngleRate = 0.009f;
 boolean isGuiVisible = true;
+float tf = 0;
 
 public class NoteSpiralManager {
   private final List<VisualNote> visualNotes;
@@ -12,26 +13,31 @@ public class NoteSpiralManager {
   private final LineToTop centerLine;
   private final Theme theme;
 
-  private float tf = 0;
   private float rotationAngle = 0;
   
   public NoteSpiralManager(ControlP5 cp5) {
     
     cp5.addSlider("tfRate")
-     .setPosition(20, 20)
+     .setPosition(20, 60)
      .setSize(200, 20)
      .setRange(0.0, 0.0003)
      .setValue(tfRate)
      .setDecimalPrecision(6)
-     .setLabel("TF Value");
+     .setLabel("TF Rate Value"); 
     cp5.addSlider("rotationAngleRate")
-       .setPosition(20, 60)
+       .setPosition(20, 100)
        .setSize(200, 20)
        .setRange(0.0, 0.1)
        .setValue(rotationAngleRate)
        .setDecimalPrecision(6)
        .setLabel("Rotation Angle");
-       
+    cp5.addSlider("tf")
+     .setPosition(20, 20)
+     .setSize(200, 20)
+     .setRange(0.0, 1.0)
+     .setValue(tf)
+     .setDecimalPrecision(6)
+     .setLabel("TF Value");           
     AllowedNotes map = new AllowedNotes();
     visualNotes = map.getVisualNotes();
     piano = new Piano();
