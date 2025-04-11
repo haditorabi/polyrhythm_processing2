@@ -13,7 +13,7 @@ public class SpiralRenderer {
 
   public void render(List<VisualNote> circles
   , Piano piano
-  , LineToTop line
+  , GuidelineToTop line
   ) {
     float[] metaballData = new float[circles.size() * 3];
     float[] colorData = new float[circles.size() * 3];
