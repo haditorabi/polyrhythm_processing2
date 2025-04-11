@@ -2,12 +2,12 @@ import processing.core.PApplet;
 
 public class SceneRenderer {
   private final PApplet applet;
-  private final NoteSpiralRenderer spiralRenderer;
+  private final NoteSpiralController noteSpiralController;
   private boolean paused = false;
 
   public SceneRenderer(PApplet applet) {
     this.applet = applet;
-    this.spiralRenderer = new NoteSpiralRenderer();
+    this.noteSpiralController = new NoteSpiralController(applet);
   }
 
   public void setPaused(boolean paused) {
@@ -20,7 +20,7 @@ public class SceneRenderer {
     
     if (!paused) {
       applet.background(0);
-      spiralRenderer.updateAndRender();
+      noteSpiralController.updateAndRender();
     } else {
       displayPauseOverlay();
     }
