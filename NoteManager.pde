@@ -4,9 +4,9 @@ public class NoteManager {
   private final CollisionDetector collisionDetector;
   private final float centerX, centerY;
 
-  public NoteManager(int canvasWidth, int canvasHeight) {
+  public NoteManager(int canvasWidth, int canvasHeight, List<VisualNote> notes) {
     AllowedNotes allowedNotes = new AllowedNotes();
-    this.notes = allowedNotes.getVisualNotes();
+    this.notes = notes;
     this.piano = new Piano();
 
     this.centerX = canvasWidth / 2f;

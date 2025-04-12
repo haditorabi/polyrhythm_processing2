@@ -14,6 +14,6 @@ public class CollisionDetector {
   }
 
   public boolean shouldResetPlay(VisualNote note) {
-    return abs(note.x - centerX) >= threshold;
+    return abs(note.x - centerX) >= threshold && abs(note.y) < centerY;
   }
 }

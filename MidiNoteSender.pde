@@ -1,19 +1,21 @@
 import javax.sound.midi.*;
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
-class MidiSender {
-  MidiDevice outputDevice;
-  Receiver midiOut;
+public class MidiNoteSender {
+  private MidiDevice outputDevice;
+  private Receiver midiOut;
   private NoteMap noteMap;
-  ArrayList<MidiNoteEvent> activeNotes = new ArrayList<MidiNoteEvent>();
-  Piano piano;
-  List<VisualNote> visualNotes;
+  private final List<MidiNoteEvent> activeNotes = new ArrayList<>();
+  private final List<NoteListener> listeners = new ArrayList<>();
 
-  MidiSender(String deviceName, Piano pianoRef, List<VisualNote> visualNotesRef) {
-  piano = pianoRef;
-  visualNotes = visualNotesRef;
-  noteMap = new NoteMap();
+  public MidiNoteSender(String deviceName, NoteMap noteMapArg) {
+    this.noteMap = noteMapArg;
+    this.outputDevice = connectToDevice(deviceName);
+  }
 
+  private MidiDevice connectToDevice(String deviceName)  {
     try {
       MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
 
@@ -34,10 +36,10 @@ class MidiSender {
       println("❌ MIDI init failed:");
       e.printStackTrace();
     }
+    return outputDevice;
   }
 
-  // 🎵 New method for note names like "C4", "G#3", etc.
-  void sendNote(String noteName, int velocity, int durationMillis) {
+  public void sendNote(String noteName, int velocity, int durationMillis) {
     Integer note = noteMap.getMidiNumber(noteName.toUpperCase());
     if (note != null) {
       sendNote(note, velocity, durationMillis);
@@ -46,15 +48,13 @@ class MidiSender {
     }
   }
 
-  // Existing method for MIDI number
-  void sendNote(int note, int velocity, int durationMillis) {
+  public void sendNote(int note, int velocity, int durationMillis) {
     sendNoteOn(0, note, velocity);
     activeNotes.add(new MidiNoteEvent(note, velocity, 0, durationMillis));
-    if (piano != null) piano.setKeyActive(note, true);
-    setVisualNoteActive(note, true);
+    notifyListeners(note, true);
   }
 
-  void sendNoteOn(int channel, int pitch, int velocity) {
+  private void sendNoteOn(int channel, int pitch, int velocity) {
     try {
       ShortMessage msg = new ShortMessage();
       msg.setMessage(ShortMessage.NOTE_ON, channel, pitch, velocity);
@@ -64,18 +64,18 @@ class MidiSender {
     }
   }
 
-  void sendNoteOff(int channel, int pitch, int velocity) {
+  private void sendNoteOff(int channel, int pitch, int velocity) {
     try {
       ShortMessage msg = new ShortMessage();
       msg.setMessage(ShortMessage.NOTE_OFF, channel, pitch, velocity);
       midiOut.send(msg, -1);
-      if (piano != null) piano.setKeyActive(pitch, false);
-      setVisualNoteActive(pitch, false);
     } catch (Exception e) {
       e.printStackTrace();
     }
+    notifyListeners(pitch, false);
   }
-  void update() {
+
+  public void update() {
     long now = millis();
     for (int i = activeNotes.size() - 1; i >= 0; i--) {
       MidiNoteEvent e = activeNotes.get(i);
@@ -86,21 +86,23 @@ class MidiSender {
     }
   }
 
-  void close() {
-    try {
-      if (outputDevice != null && outputDevice.isOpen()) {
-        outputDevice.close();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
+  public void addNoteListener(NoteListener listener) {
+    listeners.add(listener);
+  }
+
+  public void removeNoteListener(NoteListener listener) {
+    listeners.remove(listener);
+  }
+
+  private void notifyListeners(int midi, boolean on) {
+    for (NoteListener listener : listeners) {
+      listener.onNoteStateChanged(midi, on);
     }
   }
-  void setVisualNoteActive(int midi, boolean state) {
-    for (VisualNote key : visualNotes) {
-      if (key.midi == midi) {
-        key.setGlowing(state);
-        break;
-      }
+
+  public void close() {
+    if (outputDevice != null && outputDevice.isOpen()) {
+      outputDevice.close();
     }
   }
 }
