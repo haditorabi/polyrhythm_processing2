@@ -1,7 +1,7 @@
 import controlP5.*; 
 float tfRate = 0.000005f;
 float rotationAngleRate = 0.0155f;
-boolean isGuiVisible = true;
+boolean isGuiVisible = false;
 float tf = 0;
 
 public class UIManager {
@@ -33,6 +33,7 @@ public class UIManager {
       .setValue(tf)
       .setDecimalPrecision(8)
       .setLabel("TF Value");
+    cp5.setVisible(isGuiVisible);      
   }
   public void setGuiVisible(boolean visible) {
     cp5.setVisible(visible);

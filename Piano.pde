@@ -9,8 +9,8 @@ class Piano {
   void buildPiano() {
     float whiteKeyWidth = width / 52.0;
     float blackKeyWidth = whiteKeyWidth * 0.6;
-    float whiteKeyHeight = 120;
-    float blackKeyHeight = 80;
+    float whiteKeyHeight = height/6.666;
+    float blackKeyHeight = height/10;
 
     int whiteIndex = 0;
     for (int midi = 21; midi <= 108; midi++) {

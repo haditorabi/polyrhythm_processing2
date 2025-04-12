@@ -10,7 +10,7 @@ public class AppCore {
   }
 
   public void setup() {
-    size(1200, 800, P2D);
+    size(2445, 1367, P2D);
     background(0);
     noStroke();
     colorMode(HSB, 1, 1, 1, 1);

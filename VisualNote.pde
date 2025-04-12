@@ -13,7 +13,7 @@ public class VisualNote {
   }
 
   public void updatePosition(float tf, int index, int total, float centerX, float centerY, float rotation) {
-    float dist = sqrt(index / (float) total) * (height - 120) * 0.45f;
+    float dist = sqrt(index / (float) total) * (height - (height/6.666)) * 0.45f;
     float angle = TWO_PI * tf * index;
 
     float baseX = dist * cos(angle) + centerX;

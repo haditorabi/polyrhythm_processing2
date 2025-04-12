@@ -10,7 +10,7 @@ public class NoteManager {
     this.piano = new Piano();
 
     this.centerX = canvasWidth / 2f;
-    this.centerY = (canvasHeight - 120f) / 2f;
+    this.centerY = (canvasHeight - (canvasHeight/6.666)) / 2f;
 
     this.collisionDetector = new CollisionDetector(centerX, centerY, 8);
   }

@@ -1,5 +1,5 @@
 public class InputHandler {
-  private boolean guiVisible = true;
+  private boolean guiVisible;
 
   public void handleKeyPress(char key, UIManager uiManager, SceneRenderer sceneRenderer) {
     switch (key) {

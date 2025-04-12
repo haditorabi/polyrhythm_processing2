@@ -3,7 +3,7 @@ import processing.core.PApplet;
 public class SceneRenderer {
   private final PApplet applet;
   private final NoteSpiralController noteSpiralController;
-  private boolean paused = false;
+  private boolean paused = true;
 
   public SceneRenderer(PApplet applet) {
     this.applet = applet;
