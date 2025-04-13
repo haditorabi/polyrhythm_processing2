@@ -23,7 +23,7 @@ public class SpiralRenderer {
       metaballData[i * 3] = c.x;
       metaballData[i * 3 + 1] = c.y;
       if(c.isGlowing) {
-        metaballData[i * 3 + 2] = 40.0f ;
+        metaballData[i * 3 + 2] = 50.0f ;
       } else {
         metaballData[i * 3 + 2] = 20.0f;
       }
