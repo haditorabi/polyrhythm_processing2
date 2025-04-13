@@ -2,7 +2,7 @@ public class VisualNote {
   private final String noteName;
   public final int midi;
   public float x, y;
-  private float size = 8;
+  private float size = 16;
   private color noteColor = color(255, 200);
   private boolean hasPlayed = false;
   private boolean isGlowing = false;

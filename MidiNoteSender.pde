@@ -49,9 +49,11 @@ public class MidiNoteSender {
   }
 
   public void sendNote(int note, int velocity, int durationMillis) {
-    sendNoteOn(0, note, velocity);
-    activeNotes.add(new MidiNoteEvent(note, velocity, 0, durationMillis));
-    notifyListeners(note, true);
+    if (!isNoteAlreadyActive(note)) {
+      sendNoteOn(0, note, velocity);
+      activeNotes.add(new MidiNoteEvent(note, velocity, 0, durationMillis));
+      notifyListeners(note, true);
+    }
   }
 
   private void sendNoteOn(int channel, int pitch, int velocity) {
@@ -105,4 +107,13 @@ public class MidiNoteSender {
       outputDevice.close();
     }
   }
+  private boolean isNoteAlreadyActive(int note) {
+  for (MidiNoteEvent e : activeNotes) {
+    if (e.note == note) {
+      return true;
+    }
+  }
+  return false;
+}
+
 }

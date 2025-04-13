@@ -9,13 +9,13 @@ public class MidiNotePlayer {
       NoteManager noteManager) {
     this.noteSender = noteSender;
     this.notes = notes;
-    this.collisionDetector = new CollisionDetector(noteManager.getCenterX(), noteManager.getCenterY(), 8);
+    this.collisionDetector = new CollisionDetector(noteManager.getCenterX(), noteManager.getCenterY(), 16);
   }
 
   public void processNotes() {
     for (VisualNote note : notes) {
       if (collisionDetector.isReadyToPlay(note)) {
-        noteSender.sendNote(note.noteName, 100, 1500);
+        noteSender.sendNote(note.noteName, 100, 1000);
         note.hasPlayed = true;
       }
 
