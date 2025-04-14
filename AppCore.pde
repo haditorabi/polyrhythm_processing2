@@ -10,10 +10,12 @@ public class AppCore {
   }
 
   public void setup() {
-    size(2445, 1367, P2D);
+    //size(2445, 1367, P2D);
+    size(1200, 800, P2D);
+
     background(0);
     noStroke();
-    colorMode(HSB, 1, 1, 1, 1);
+    colorMode(HSB, 360, 100, 100, 100);
     pixelDensity(1);
     // PApplet app = sceneRenderer.getApplet(); // cleaner setup call
     // app.size(1200, 800, PApplet.P2D);

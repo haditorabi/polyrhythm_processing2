@@ -13,7 +13,7 @@ public class AllowedNotes {
     noteMap = new NoteMap();
     // add("A0", "B0");
     // add("C1", "B1");
-     add("C2", "B2");
+    add("C2", "B2");
     add("C3", "B3");
     add("C4", "B4");
     add("C5", "B5");

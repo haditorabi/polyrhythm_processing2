@@ -12,9 +12,9 @@ public class SpiralRenderer {
   }
 
   public void render(List<VisualNote> circles
-  , Piano piano
-  , GuidelineToTop line
-  ) {
+    , Piano piano
+    , GuidelineToTop line
+    ) {
     float[] metaballData = new float[circles.size() * 3];
     float[] colorData = new float[circles.size() * 3];
     int circlesSize = circles.size();
@@ -22,23 +22,29 @@ public class SpiralRenderer {
       VisualNote c = circles.get(i);
       metaballData[i * 3] = c.x;
       metaballData[i * 3 + 1] = c.y;
-      if(c.isGlowing) {
-        metaballData[i * 3 + 2] = 50.0f ;
+      if (c.isGlowing) {
+        metaballData[i * 3 + 2] = 40.0f ;
       } else {
         metaballData[i * 3 + 2] = 20.0f;
       }
-      
+
 
       float[] glowingRgb = themeUtils.hexToRGB(theme.colors[0]);
       float[] rgb2 = themeUtils.hexToRGB(theme.colors[2]);
-      if(c.isGlowing) {
-        colorData[i * 3] = glowingRgb[0];
-        colorData[i * 3 + 1] = glowingRgb[1];
-        colorData[i * 3 + 2] = glowingRgb[2];
-      } else {
+
+      float hue = map(i, 0, circles.size(), 50, 350);
+      color cl = color(hue, 100, 800);  // Bright HSB color
+      String hexColor = "#" + hex(cl, 6);  // ✅ Ensure 6-digit RGB hex string
+      float[] rgb3 = themeUtils.hexToRGB(hexColor);
+
+      if (c.isGlowing) {
         colorData[i * 3] = rgb2[0];
         colorData[i * 3 + 1] = rgb2[1];
         colorData[i * 3 + 2] = rgb2[2];
+      } else {
+        colorData[i * 3] = rgb3[0];
+        colorData[i * 3 + 1] = rgb3[1];
+        colorData[i * 3 + 2] = rgb3[2];
       }
     }
 
