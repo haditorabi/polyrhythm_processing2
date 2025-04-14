@@ -11,15 +11,15 @@ public class AllowedNotes {
   public AllowedNotes() {
     allowedNames = new ArrayList<>();
     noteMap = new NoteMap();
-    add("A0", "B0");
-    add("C1", "B1");
+    //add("A0", "B0");
+    //add("C1", "B1");
     add("C2", "B2");
     add("C3", "B3");
     add("C4", "B4");
     add("C5", "B5");
-    add("C6", "B6");
-    add("C7", "B7");
-    add("C8");
+    //add("C6", "B6");
+    //add("C7", "B7");
+    //add("C8");
    }
 
   private void add(String from, String to) {
@@ -27,9 +27,9 @@ public class AllowedNotes {
     int toMidi = noteMap.getMidiNumber(to);
     for (int midi = fromMidi; midi <= toMidi; midi++) {
       String noteName = chromatic[midi % 12] + ((midi / 12) - 1);
-      // if (!noteName.contains("#")) {
+       if (!noteName.contains("#")) {
         allowedNames.add(noteName);
-      // }
+       }
     }
   }
 
