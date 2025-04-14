@@ -42,7 +42,11 @@ public class AllowedNotes {
     for (String name : allowedNames) {
       Integer midi = noteMap.getMidiNumber(name);
       if (midi != null) {
-        notes.add(new VisualNote(name, midi));
+        if (!name.contains("#")) {
+          notes.add(new VisualNote(name, midi, true));
+        } else {
+          notes.add(new VisualNote(name, midi, false));
+        }
       }
     }
 

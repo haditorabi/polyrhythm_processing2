@@ -6,10 +6,12 @@ public class VisualNote {
   private color noteColor = color(255, 200);
   private boolean hasPlayed = false;
   private boolean isGlowing = false;
+  public boolean isActive = false;
 
-  public VisualNote(String name, int midi) {
+  public VisualNote(String name, int midi, boolean isActive) {
     this.noteName = name;
     this.midi = midi;
+    this.isActive = isActive;
   }
 
   public void updatePosition(float tf, int index, int total, float centerX, float centerY, float rotation) {
@@ -38,6 +40,9 @@ public class VisualNote {
 
   public void setGlowing(boolean state) {
     isGlowing = state;
+  }
+  public void setActive(boolean state) {
+    isActive = state;
   }
 
   public void setHasPlayed(boolean state) {

@@ -30,7 +30,7 @@ public class SceneRenderer {
     applet.fill(applet.color(255));
     applet.textSize(48);
     applet.textAlign(PApplet.CENTER, PApplet.CENTER);
-    applet.text("Paused", applet.width / 2f, applet.height / 1.43f);
+    applet.text("Paused", applet.width / 2f, applet.height / 1.1f);
   }
   public PApplet getApplet() {
   return applet;

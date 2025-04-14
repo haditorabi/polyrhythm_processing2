@@ -14,13 +14,15 @@ public class MidiNotePlayer {
 
   public void processNotes() {
     for (VisualNote note : notes) {
-      if (collisionDetector.isReadyToPlay(note)) {
-        noteSender.sendNote(note.noteName, 100, 500);
-        note.hasPlayed = true;
-      }
+      if(note.isActive) {
+        if (collisionDetector.isReadyToPlay(note)) {
+          noteSender.sendNote(note.noteName, 100, 500);
+          note.hasPlayed = true;
+        }
 
-      if (collisionDetector.shouldResetPlay(note)) {
-        note.hasPlayed = false;
+        if (collisionDetector.shouldResetPlay(note)) {
+          note.hasPlayed = false;
+        }
       }
     }
 
