@@ -19,8 +19,7 @@ class PianoKey {
     } else {
       shaderBuffer.fill(isBlack ? 0 : 255);
     }
-    shaderBuffer.stroke(0);
-    shaderBuffer.rect(x, y, w, h);
+    shaderBuffer.rect(x, y, w - 1, h);
     shaderBuffer.noStroke();
   }
 
