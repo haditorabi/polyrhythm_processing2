@@ -21,6 +21,7 @@ public class VisualNote {
 
     x = cos(rotation) * (baseX - centerX) - sin(rotation) * (baseY - centerY) + centerX;
     y = sin(rotation) * (baseX - centerX) + cos(rotation) * (baseY - centerY) + centerY;
+    println(tf);
   }
 
   public void draw(PGraphics pg) {
