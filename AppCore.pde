@@ -10,8 +10,16 @@ public class AppCore {
   }
 
   public void setup() {
-    //size(2445, 1367, P2D);
-    size(1200, 800, P2D);
+    //hd
+    //size(1280, 720, P2D);
+    //full-hd
+    size(1920, 1080, P2D);
+    //2k
+    //size(2560, 1440, P2D);
+    //4k
+    //size(3840, 2160, P2D);
+
+
 
     background(0);
     noStroke();
