@@ -23,20 +23,19 @@ public class SpiralRenderer {
       metaballData[i * 3] = c.x;
       metaballData[i * 3 + 1] = c.y;
       if (c.isGlowing) {
-        metaballData[i * 3 + 2] = 40.0f ;
+        metaballData[i * 3 + 2] = 35.0f ;
       } else {
-        metaballData[i * 3 + 2] = 20.0f;
+        metaballData[i * 3 + 2] = 25.0f;
       }
 
 
       float[] glowingRgb = themeUtils.hexToRGB(theme.colors[0]);
       float[] rgb2 = themeUtils.hexToRGB(theme.colors[2]);
 
-      float hue = map(i, 0, circles.size(), 50, 350);
-      color cl = color(hue, 100, 800);  // Bright HSB color
-      String hexColor = "#" + hex(cl, 6);  // ✅ Ensure 6-digit RGB hex string
+      float hue = map(i, 0, circles.size(), 20, 350);
+      color cl = color(hue, 100, 100);
+      String hexColor = "#" + hex(cl, 6);
       float[] rgb3 = themeUtils.hexToRGB(hexColor);
-
       if (c.isGlowing) {
         colorData[i * 3] = rgb2[0];
         colorData[i * 3 + 1] = rgb2[1];

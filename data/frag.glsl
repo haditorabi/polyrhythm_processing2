@@ -5,8 +5,8 @@ precision mediump int;
 
 uniform float WIDTH;
 uniform float HEIGHT;
-uniform vec3 metaballs[52];
-uniform vec3 metaballColors[52];
+uniform vec3 metaballs[88];
+uniform vec3 metaballColors[88];
 
 varying vec4 vertColor;
 varying vec2 vertTexCoord;
@@ -17,7 +17,7 @@ void main() {
   float v = 0.0;
   vec3 colorTotal = vec3(0.0);
   
-  for (int i = 0; i < 52; i++) {
+  for (int i = 0; i < 88; i++) {
     vec3 ball = metaballs[i];
     float dx = ball.x - x;
     float dy = ball.y - y;
