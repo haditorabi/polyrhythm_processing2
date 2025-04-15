@@ -1,19 +1,19 @@
 public class CollisionDetector {
-  private final float centerX;
-  private final float centerY;
+  private final float canvasHeight;
   private final float threshold;
 
-  public CollisionDetector(float centerX, float centerY, float threshold) {
-    this.centerX = centerX;
-    this.centerY = centerY;
+  public CollisionDetector( float threshold) {
+    this.canvasHeight = height;
     this.threshold = threshold;
   }
 
   public boolean isReadyToPlay(VisualNote note) {
-    return abs(note.x - centerX - 8) < threshold && abs(note.y) < centerY && !note.hasPlayed;
+    float triggerY = canvasHeight / 1.21f - threshold;
+    return note.y < triggerY && !note.hasPlayed;
   }
 
   public boolean shouldResetPlay(VisualNote note) {
-    return abs(note.x - centerX) >= threshold && abs(note.y) < centerY;
+    float resetY = canvasHeight / 1.21f - threshold * 4;
+    return note.y < resetY && note.hasPlayed;
   }
 }

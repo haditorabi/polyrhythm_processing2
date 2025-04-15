@@ -15,10 +15,10 @@ public class GuidelineToTop {
   private float thickness;
 
   public GuidelineToTop(float centerX, float centerY) {
-    this.startX = centerX;
-    this.startY = centerY;
-    this.endX = width / 2f;
-    this.endY = 0;
+    this.startX = width * 0.02f;
+    this.startY = height /1.21f;
+    this.endX = width * 0.98f;
+    this.endY = height /1.21f;
     this.lineColor = color(255); // Default white
     this.thickness = 1.0f;
   }

@@ -10,7 +10,7 @@ public class MidiNotePlayer {
     ) {
     this.noteSender = noteSender;
     this.notes = notes;
-    this.collisionDetector = new CollisionDetector(noteManager.getCenterX(), noteManager.getCenterY(), 16);
+    this.collisionDetector = new CollisionDetector(16);
   }
 
   public void processNotes() {

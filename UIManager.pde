@@ -1,8 +1,8 @@
 import controlP5.*;
-float tfRate = 0.00001f;
-float rotationAngleRate = 0.0185f;
+float tfRate = 0.0001f;
+float rotationAngleRate = 0.0f;
 boolean isGuiVisible = false;
-float tf = 0.03f;
+float tf = 0.0f;
 
 public class UIManager {
   private final ControlP5 cp5;
