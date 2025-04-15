@@ -1,8 +1,15 @@
 public class GuidelineToTop {
-  private final float startX;
-  private final float startY;
-  private final float endX;
-  private final float endY;
+  public final float startX;
+  public final float startY;
+  public final float endX;
+  public final float endY;
+
+  float glowIntensity = 13.0;
+  float glowMax = 13.0;
+  float glowMin = 1.0;
+  float lastHitTime = 0;
+  int glowDropDelay = 50;
+  color lineGlowColor = color(255, 200, 50);
 
   private int lineColor;
   private float thickness;
@@ -25,9 +32,17 @@ public class GuidelineToTop {
   }
 
   public void draw(PGraphics buffer) {
-    buffer.stroke(lineColor);
-    buffer.strokeWeight(thickness);
-    buffer.line(startX, startY, endX, endY);
-    buffer.noStroke();
+    // buffer.stroke(lineColor);
+    // buffer.strokeWeight(thickness);
+    // buffer.line(startX, startY, endX, endY);
+    // buffer.noStroke();
+    if (millis() - lastHitTime > glowDropDelay) {
+      glowIntensity = lerp(glowIntensity, glowMin, 0.05);
+    }
+  }
+
+  void onNoteHitLine() {
+  glowIntensity = glowMax;
+  lastHitTime = millis();
   }
 }

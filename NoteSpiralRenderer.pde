@@ -4,11 +4,12 @@ public class NoteSpiralRenderer {
   private final List<VisualNote> notes;
   private final GuidelineToTop centerLine;
 
-  public NoteSpiralRenderer(int width, int height, Theme theme, NoteManager noteManager) {
+  public NoteSpiralRenderer(int width, int height, Theme theme, NoteManager noteManager, GuidelineToTop centerLine) {
     this.spiralRenderer = new SpiralRenderer(width, height, theme);
     this.piano = noteManager.getPiano();
     this.notes = noteManager.getNotes();
-    this.centerLine = new GuidelineToTop(noteManager.getCenterX(), noteManager.getCenterY());
+    this.centerLine = centerLine;
+    // this.centerLine = new GuidelineToTop(noteManager.getCenterX(), noteManager.getCenterY());
   }
 
   public void render() {

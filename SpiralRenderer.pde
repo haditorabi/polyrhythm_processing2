@@ -35,7 +35,6 @@ public class SpiralRenderer {
 
 
       float[] glowingRgb = themeUtils.hexToRGB(theme.colors[0]);
-      float[] rgb2 = themeUtils.hexToRGB(theme.colors[2]);
 
       float hue = map(i, 0, circles.size(), 20, 350);
       color cl = color(hue, c.isActive ? c.isGlowing ? 75 : 85 : 60, c.isActive ? c.isGlowing ? 50 : 30 : 60);
@@ -51,10 +50,20 @@ public class SpiralRenderer {
       colorData[i * 3 + 2] = rgb3[2];
       //}
     }
-
+    float[] rgb2 = themeUtils.hexToRGB(theme.colors[2]);
     buffer.beginDraw();
     buffer.background(unhex(theme.background.substring(1) + "FF"));
     buffer.shader(metaballShader);
+    line.draw(buffer);
+    metaballShader.set("lineGlowIntensity", line.glowIntensity);
+    metaballShader.set("lineGlowColor", 
+    rgb2[0], 
+    rgb2[1], 
+    rgb2[2]
+    );
+
+    metaballShader.set("lineStart", line.startX, line.startY);
+    metaballShader.set("lineEnd", line.endX, line.endY);
     metaballShader.set("metaballs", metaballData, 3);
     metaballShader.set("metaballColors", colorData, 3);
     metaballShader.set("WIDTH", (float) width);
@@ -68,7 +77,6 @@ public class SpiralRenderer {
       c.draw(buffer);
     }
     piano.draw(buffer);
-    line.draw(buffer);
     buffer.endDraw();
 
     image(buffer, 0, 0, width, height);

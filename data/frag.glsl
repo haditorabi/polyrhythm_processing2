@@ -15,6 +15,19 @@ uniform float iTime;
 varying vec4 vertColor;
 varying vec2 vertTexCoord;
 
+uniform vec2 lineStart;
+uniform vec2 lineEnd;
+uniform float lineGlowIntensity; // controls how strong the glow is
+uniform vec3 lineGlowColor;      // controls the color of the glow
+
+float glowLine(vec2 p, vec2 a, vec2 b, float thickness) {
+  vec2 pa = p - a;
+  vec2 ba = b - a;
+  float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0);
+  float d = length(pa - ba * h);
+  return smoothstep(thickness, 0.0, d);
+}
+
 void main() {
   float x = vertTexCoord.x * WIDTH;
   float y = vertTexCoord.y * HEIGHT;
@@ -30,6 +43,11 @@ void main() {
     v += contribution;
     colorTotal += metaballColors[i] * contribution / 7.5;
   }
-  
+  vec2 uv = vertTexCoord * vec2(WIDTH, HEIGHT);
+  float lineGlow = glowLine(uv, lineStart, lineEnd, lineGlowIntensity);
+
+  vec3 lineColor = vec3(1.0, 0.8, 0.2);
+  colorTotal += lineGlowColor * lineGlow;
+
   gl_FragColor = vec4(colorTotal, 1.0);
 }

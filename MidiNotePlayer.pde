@@ -6,7 +6,8 @@ public class MidiNotePlayer {
   public MidiNotePlayer(
     MidiNoteSender noteSender,
     List<VisualNote> notes,
-    NoteManager noteManager) {
+    NoteManager noteManager
+    ) {
     this.noteSender = noteSender;
     this.notes = notes;
     this.collisionDetector = new CollisionDetector(noteManager.getCenterX(), noteManager.getCenterY(), 16);
@@ -18,6 +19,7 @@ public class MidiNotePlayer {
         if (collisionDetector.isReadyToPlay(note)) {
           noteSender.sendNote(note.noteName, 120, 1000);
           note.hasPlayed = true;
+          
         }
 
         if (collisionDetector.shouldResetPlay(note)) {

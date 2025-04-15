@@ -9,10 +9,12 @@ public class MidiNoteSender {
   private NoteMap noteMap;
   private final List<MidiNoteEvent> activeNotes = new ArrayList<>();
   private final List<NoteListener> listeners = new ArrayList<>();
+  private final GuidelineToTop centerLine;
 
-  public MidiNoteSender(String deviceName, NoteMap noteMapArg) {
+  public MidiNoteSender(String deviceName, NoteMap noteMapArg, GuidelineToTop centerLine) {
     this.noteMap = noteMapArg;
     this.outputDevice = connectToDevice(deviceName);
+    this.centerLine = centerLine;
   }
 
   private MidiDevice connectToDevice(String deviceName) {
@@ -54,6 +56,7 @@ public class MidiNoteSender {
       sendNoteOn(channel, note, velocity);
       activeNotes.add(new MidiNoteEvent(note, velocity, channel, durationMillis));
       notifyListeners(note, true);
+      centerLine.onNoteHitLine();
     }
   }
 
