@@ -15,8 +15,8 @@ public class VisualNote {
   }
 
   public void updatePosition(float tf, int index, int total, float centerX, float centerY, float rotation) {
-    float dist = map(index, 0, total, 0, (height /1.24));
-    float normalizedIndex = map(index, 0, total, total/1.25, total);
+    float dist = map(index, 0, total, (height/27 ), (height /1.24));
+    float normalizedIndex = map(index, 2, total, total/1.25, total);
     float angle = TWO_PI * tf * normalizedIndex;
 
     x = dist * cos(angle) + centerX;
