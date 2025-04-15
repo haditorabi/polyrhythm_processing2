@@ -4,9 +4,9 @@ public class MidiNotePlayer {
   private final CollisionDetector collisionDetector;
 
   public MidiNotePlayer(
-      MidiNoteSender noteSender,
-      List<VisualNote> notes,
-      NoteManager noteManager) {
+    MidiNoteSender noteSender,
+    List<VisualNote> notes,
+    NoteManager noteManager) {
     this.noteSender = noteSender;
     this.notes = notes;
     this.collisionDetector = new CollisionDetector(noteManager.getCenterX(), noteManager.getCenterY(), 16);
@@ -14,7 +14,7 @@ public class MidiNotePlayer {
 
   public void processNotes() {
     for (VisualNote note : notes) {
-      if(note.isActive) {
+      if (note.isActive) {
         if (collisionDetector.isReadyToPlay(note)) {
           noteSender.sendNote(note.noteName, 120, 1000);
           note.hasPlayed = true;

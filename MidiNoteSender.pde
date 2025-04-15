@@ -15,7 +15,7 @@ public class MidiNoteSender {
     this.outputDevice = connectToDevice(deviceName);
   }
 
-  private MidiDevice connectToDevice(String deviceName)  {
+  private MidiDevice connectToDevice(String deviceName) {
     try {
       MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
 
@@ -32,7 +32,8 @@ public class MidiNoteSender {
       if (midiOut == null) {
         println("⚠️ Could not find or open device: " + deviceName);
       }
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       println("❌ MIDI init failed:");
       e.printStackTrace();
     }
@@ -42,17 +43,26 @@ public class MidiNoteSender {
   public void sendNote(String noteName, int velocity, int durationMillis) {
     Integer note = noteMap.getMidiNumber(noteName.toUpperCase());
     if (note != null) {
-      sendNote(note, velocity, durationMillis);
+      sendNote(note, velocity, durationMillis, 0);
     } else {
       println("⚠️ Invalid note name: " + noteName);
     }
   }
 
-  public void sendNote(int note, int velocity, int durationMillis) {
+  public void sendNote(int note, int velocity, int durationMillis, int channel) {
     if (!isNoteAlreadyActive(note)) {
-      sendNoteOn(0, note, velocity);
-      activeNotes.add(new MidiNoteEvent(note, velocity, 0, durationMillis));
+      sendNoteOn(channel, note, velocity);
+      activeNotes.add(new MidiNoteEvent(note, velocity, channel, durationMillis));
       notifyListeners(note, true);
+    }
+  }
+
+  public void sendNote(String noteName, int velocity, int durationMillis, int channel) {
+    Integer note = noteMap.getMidiNumber(noteName.toUpperCase());
+    if (note != null) {
+      sendNote(note, velocity, durationMillis, channel);
+    } else {
+      println("⚠️ Invalid note name: " + noteName);
     }
   }
 
@@ -61,7 +71,8 @@ public class MidiNoteSender {
       ShortMessage msg = new ShortMessage();
       msg.setMessage(ShortMessage.NOTE_ON, channel, pitch, velocity);
       midiOut.send(msg, -1);
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       e.printStackTrace();
     }
   }
@@ -71,7 +82,8 @@ public class MidiNoteSender {
       ShortMessage msg = new ShortMessage();
       msg.setMessage(ShortMessage.NOTE_OFF, channel, pitch, velocity);
       midiOut.send(msg, -1);
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       e.printStackTrace();
     }
     notifyListeners(pitch, false);
@@ -82,11 +94,12 @@ public class MidiNoteSender {
     for (int i = activeNotes.size() - 1; i >= 0; i--) {
       MidiNoteEvent e = activeNotes.get(i);
       if (now >= e.offTimeMillis) {
-        sendNoteOff(e.channel, e.note, e.velocity);
+        sendNoteOff(e.channel, e.note, e.velocity); // Use stored channel!
         activeNotes.remove(i);
       }
     }
   }
+
 
   public void addNoteListener(NoteListener listener) {
     listeners.add(listener);
@@ -108,12 +121,11 @@ public class MidiNoteSender {
     }
   }
   private boolean isNoteAlreadyActive(int note) {
-  for (MidiNoteEvent e : activeNotes) {
-    if (e.note == note) {
-      return true;
+    for (MidiNoteEvent e : activeNotes) {
+      if (e.note == note) {
+        return true;
+      }
     }
+    return false;
   }
-  return false;
-}
-
 }

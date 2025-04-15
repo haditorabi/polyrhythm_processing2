@@ -6,7 +6,7 @@ public class VisualNoteHighlighter implements NoteListener {
   }
 
   @Override
-  public void onNoteStateChanged(int midi, boolean isActive) {
+    public void onNoteStateChanged(int midi, boolean isActive) {
     for (VisualNote note : notes) {
       if (note.midi == midi) {
         note.setGlowing(isActive);

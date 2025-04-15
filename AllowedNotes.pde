@@ -20,16 +20,16 @@ public class AllowedNotes {
     //add("C6", "B6");
     //add("C7", "B7");
     //add("C8");
-   }
+  }
 
   private void add(String from, String to) {
     int fromMidi = noteMap.getMidiNumber(from);
     int toMidi = noteMap.getMidiNumber(to);
     for (int midi = fromMidi; midi <= toMidi; midi++) {
       String noteName = chromatic[midi % 12] + ((midi / 12) - 1);
-       if (!noteName.contains("#")) {
+      if (!noteName.contains("#")) {
         allowedNames.add(noteName);
-       }
+      }
     }
   }
 

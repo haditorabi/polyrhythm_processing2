@@ -43,9 +43,9 @@ public class SpiralRenderer {
       //  colorData[i * 3 + 1] = rgb2[1];
       //  colorData[i * 3 + 2] = rgb2[2];
       //} else {
-        colorData[i * 3] = rgb3[0];
-        colorData[i * 3 + 1] = rgb3[1];
-        colorData[i * 3 + 2] = rgb3[2];
+      colorData[i * 3] = rgb3[0];
+      colorData[i * 3 + 1] = rgb3[1];
+      colorData[i * 3 + 2] = rgb3[2];
       //}
     }
 
@@ -56,7 +56,7 @@ public class SpiralRenderer {
     metaballShader.set("metaballColors", colorData, 3);
     metaballShader.set("WIDTH", (float) width);
     metaballShader.set("HEIGHT", (float) height);
-	  metaballShader.set("iTime", frameCount / 100);
+    metaballShader.set("iTime", frameCount / 100);
 
 
     buffer.rect(0, 0, width, height);

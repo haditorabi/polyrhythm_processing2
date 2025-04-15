@@ -6,7 +6,7 @@ public class PianoKeyHighlighter implements NoteListener {
   }
 
   @Override
-  public void onNoteStateChanged(int midi, boolean isActive) {
+    public void onNoteStateChanged(int midi, boolean isActive) {
     piano.setKeyActive(midi, isActive);
   }
 }

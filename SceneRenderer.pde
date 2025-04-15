@@ -17,7 +17,7 @@ public class SceneRenderer {
     return this.paused;
   }
   public void render() {
-    
+
     if (!paused) {
       applet.background(0);
       noteSpiralController.updateAndRender();
@@ -33,6 +33,6 @@ public class SceneRenderer {
     applet.text("Paused", applet.width / 2f, applet.height / 1.1f);
   }
   public PApplet getApplet() {
-  return applet;
-}
+    return applet;
+  }
 }
