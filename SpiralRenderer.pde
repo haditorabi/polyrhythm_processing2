@@ -23,11 +23,14 @@ public class SpiralRenderer {
       metaballData[i * 3] = c.x;
       metaballData[i * 3 + 1] = c.y;
       if (c.isGlowing) {
-        metaballData[i * 3 + 2] = (30.0f / 1920) * width ;
+        // c.setSize(25);
+        metaballData[i * 3 + 2] = (65.0f / 1920) * width ;
       } else if (!c.isActive) {
-        metaballData[i * 3 + 2] = (23.0f / 1920) * width;
+        // c.setSize(20);
+        metaballData[i * 3 + 2] = (30.0f / 1920) * width;
       } else {
-        metaballData[i * 3 + 2] = (23.0f / 1920) * width;
+        // c.setSize(25);
+        metaballData[i * 3 + 2] = (45.0f / 1920) * width;
       }
 
 
@@ -35,7 +38,7 @@ public class SpiralRenderer {
       float[] rgb2 = themeUtils.hexToRGB(theme.colors[2]);
 
       float hue = map(i, 0, circles.size(), 20, 350);
-      color cl = color(hue, c.isActive ? 85 : 60, c.isActive ? 50 : 60);
+      color cl = color(hue, c.isActive ? c.isGlowing ? 75 : 85 : 60, c.isActive ? c.isGlowing ? 50 : 30 : 60);
       String hexColor = "#" + hex(cl, 6);
       float[] rgb3 = themeUtils.hexToRGB(hexColor);
       //if (c.isGlowing && c.isActive) {
@@ -56,7 +59,6 @@ public class SpiralRenderer {
     metaballShader.set("metaballColors", colorData, 3);
     metaballShader.set("WIDTH", (float) width);
     metaballShader.set("HEIGHT", (float) height);
-    metaballShader.set("iTime", frameCount / 100);
 
 
     buffer.rect(0, 0, width, height);
