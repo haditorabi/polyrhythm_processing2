@@ -15,7 +15,7 @@ public class VisualNote {
   }
 
   public void updatePosition(float tf, int index, int total, float centerX, float centerY, float rotation) {
-    float dist = map(index, 0, total, (height /1.24) - (height/1.35 ), (height /1.24));
+    float dist = getDist(index, total);
     float normalizedIndex = map(index, 2, total, total/1.25, total);
     float angle = TWO_PI * tf * normalizedIndex;
 
@@ -23,7 +23,7 @@ public class VisualNote {
     y = dist * -abs(sin(angle)) + centerY;
 
     if (frameCount%24 == 0 && index == 0) {
-      println(tf);
+      // println(tf);
     }
     
   }
@@ -45,6 +45,9 @@ public class VisualNote {
   }
   public void setActive(boolean state) {
     isActive = state;
+  }
+  public float getDist(int index, int total) {
+    return map(index, 0, total, (height /1.24) - (height/1.35 ), (height /1.24));
   }
 
   public void setHasPlayed(boolean state) {
