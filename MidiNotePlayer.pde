@@ -18,7 +18,7 @@ public class MidiNotePlayer {
       if (note.isActive) {
         if (collisionDetector.isReadyToPlay(note)) {
           noteSender.sendNote(note.noteName, 120, 1000);
-          println("Playing note: " + note.noteName);
+          // println("Playing note: " + note.noteName);
           note.hasPlayed = true;
           
         }

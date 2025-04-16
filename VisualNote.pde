@@ -22,7 +22,7 @@ public class VisualNote {
     x = dist * cos(angle) + centerX;
     y = dist * -abs(sin(angle)) + centerY;
 
-    // println(tf);
+    println(tf);
   }
 
   public void draw(PGraphics pg) {
