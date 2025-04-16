@@ -22,7 +22,10 @@ public class VisualNote {
     x = dist * cos(angle) + centerX;
     y = dist * -abs(sin(angle)) + centerY;
 
-    println(tf);
+    if (frameCount%24 == 0 && index == 0) {
+      println(tf);
+    }
+    
   }
 
   public void draw(PGraphics pg) {

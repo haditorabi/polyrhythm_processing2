@@ -1,4 +1,4 @@
-import java.util.*;
+ import java.util.*;
 
 public class AllowedNotes {
   private final List<String> allowedNames;
