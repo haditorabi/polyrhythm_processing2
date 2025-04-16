@@ -23,7 +23,7 @@ public class VisualNote {
     y = dist * -abs(sin(angle)) + centerY;
 
     if (frameCount%24 == 0 && index == 0) {
-      // println(tf);
+      println(tf);
     }
     
   }
