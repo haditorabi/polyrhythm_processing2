@@ -9,11 +9,11 @@ public class CollisionDetector {
 
   public boolean isReadyToPlay(VisualNote note) {
     float triggerY = canvasHeight / 1.21f - threshold;
-    return note.y < triggerY && !note.hasPlayed;
+    return note.y > triggerY && !note.hasPlayed;
   }
 
   public boolean shouldResetPlay(VisualNote note) {
-    float resetY = canvasHeight / 1.21f - threshold * 4;
+    float resetY = canvasHeight / 1.21f - threshold * 2;
     return note.y < resetY && note.hasPlayed;
   }
 }

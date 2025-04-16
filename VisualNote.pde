@@ -15,14 +15,14 @@ public class VisualNote {
   }
 
   public void updatePosition(float tf, int index, int total, float centerX, float centerY, float rotation) {
-    float dist = map(index, 0, total, (height/27 ), (height /1.24));
+    float dist = map(index, 0, total, (height /1.24) - (height/1.35 ), (height /1.24));
     float normalizedIndex = map(index, 2, total, total/1.25, total);
     float angle = TWO_PI * tf * normalizedIndex;
 
     x = dist * cos(angle) + centerX;
     y = dist * -abs(sin(angle)) + centerY;
 
-    println(tf);
+    // println(tf);
   }
 
   public void draw(PGraphics pg) {
@@ -49,12 +49,5 @@ public class VisualNote {
   }
   public void setSize(int circleSize) {
     size = circleSize;
-  }
-  public boolean isReadyToPlay(float centerX, float centerY, float threshold) {
-    return abs(x - centerX) < threshold && abs(y) < height / 2 && !hasPlayed;
-  }
-
-  public boolean shouldResetPlay(float centerX, float threshold) {
-    return abs(x - centerX) >= threshold;
   }
 }
