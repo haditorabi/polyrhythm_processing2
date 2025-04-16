@@ -17,7 +17,11 @@ public class MidiNotePlayer {
     for (VisualNote note : notes) {
       if (note.isActive) {
         if (collisionDetector.isReadyToPlay(note)) {
-          noteSender.sendNote(note.noteName, 120, 1000);
+          if(note.x < width/2) {
+            noteSender.sendNote(note.noteName, 120, 1000, 1);
+          } else {
+            noteSender.sendNote(note.noteName, 120, 1000, 2);
+          }
           // println("Playing note: " + note.noteName);
           note.hasPlayed = true;
           
