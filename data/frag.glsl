@@ -1,4 +1,4 @@
-#define MAX_ARCS 28
+#define MAX_ARCS 21
 #ifdef GL_ES
 precision highp float;
 precision mediump int;

@@ -4,7 +4,13 @@ public class SpiralRenderer {
   private final Theme theme;
   private ThemeUtils themeUtils;
   private List<ArcData> arcs = new ArrayList<>();
-  
+  private float[] arcCenters = new float[21 * 3];
+  private float[] arcColors = new float[21 * 3];
+  private float[] arcStartAngles = new float[21];
+  private float[] arcEndAngles = new float[21];
+  private float[] arcThicknesses = new float[21];
+  private float[] arcOpacities = new float[21];
+  boolean arcBufferNeedsUpdate = true;
   public SpiralRenderer(int width, int height, Theme theme) {
     this.theme = theme;
     metaballShader = loadShader("frag.glsl", "vert.glsl");
@@ -85,27 +91,23 @@ public class SpiralRenderer {
     rgb2[2]
     );
     ///////////
-    float[] arcCenters = new float[28 * 3];
-    float[] arcColors = new float[28 * 3];
-    float[] arcStartAngles = new float[28];
-    float[] arcEndAngles = new float[28];
-    float[] arcThicknesses = new float[28];
-    float[] arcOpacities = new float[28];
 
-    for (int i = 0; i < 28 && i < arcs.size(); i++) {
-      ArcData arc = arcs.get(i);
-      arcCenters[i * 3] = arc.x;
-      arcCenters[i * 3 + 1] = arc.y;
-      arcCenters[i * 3 + 2] = arc.radius;
+    if(arcBufferNeedsUpdate) {
+      for (int i = 0; i < 21 && i < arcs.size(); i++) {
+        ArcData arc = arcs.get(i);
+        arcCenters[i * 3] = arc.x;
+        arcCenters[i * 3 + 1] = arc.y;
+        arcCenters[i * 3 + 2] = arc.radius;
 
-      arcColors[i * 3] = arc.r;
-      arcColors[i * 3 + 1] = arc.g;
-      arcColors[i * 3 + 2] = arc.b;
+        arcColors[i * 3] = arc.r;
+        arcColors[i * 3 + 1] = arc.g;
+        arcColors[i * 3 + 2] = arc.b;
 
-      arcStartAngles[i] = arc.startAngle;
-      arcEndAngles[i] = arc.endAngle;
-      arcThicknesses[i] = arc.thickness;
-      arcOpacities[i] = arc.a;
+        arcStartAngles[i] = arc.startAngle;
+        arcEndAngles[i] = arc.endAngle;
+        arcThicknesses[i] = arc.thickness;
+        arcOpacities[i] = arc.a;
+      }
     }
 
     metaballShader.set("arcCenters", arcCenters, 3);
