@@ -1,5 +1,5 @@
 import controlP5.*;
-float tfRate = 0.00005f;
+float tfRate = 0.00008f;
 float rotationAngleRate = 0.0f;
 boolean isGuiVisible = false;
 float tf = 0.0f;

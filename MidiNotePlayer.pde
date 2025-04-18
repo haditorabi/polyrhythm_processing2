@@ -10,7 +10,7 @@ public class MidiNotePlayer {
     ) {
     this.noteSender = noteSender;
     this.notes = notes;
-    this.collisionDetector = new CollisionDetector((16.0f / 1920) * width);
+    this.collisionDetector = new CollisionDetector((8.0f / 1920) * width);
   }
 
   public void processNotes() {
@@ -18,9 +18,9 @@ public class MidiNotePlayer {
       if (note.isActive) {
         if (collisionDetector.isReadyToPlay(note)) {
           if(note.x < width/2) {
-            noteSender.sendNote(note.noteName, 120, 1000, 1);
+            noteSender.sendNote(note.noteName, 120, 1000, 0);
           } else {
-            noteSender.sendNote(note.noteName, 120, 1000, 2);
+            noteSender.sendNote(note.noteName, 120, 1000, 1);
           }
           // println("Playing note: " + note.noteName);
           note.hasPlayed = true;
