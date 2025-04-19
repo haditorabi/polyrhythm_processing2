@@ -14,9 +14,10 @@ public class AllowedNotes {
     //add("A0", "B0");
     //add("C1", "B1");
     // add("C2", "B2");
-    add("C3", "B3");
+    //add("C3", "B3");
     add("C4", "B4");
-    add("C5", "B5");
+    add("C5");
+    //add("C5", "B5");
     //add("C6", "B6");
     //add("C7", "B7");
     //add("C8");
@@ -38,14 +39,49 @@ public class AllowedNotes {
   }
 
   public List<VisualNote> getVisualNotes() {
+    PImage img;
     List<VisualNote> notes = new ArrayList<>();
     for (String name : allowedNames) {
       Integer midi = noteMap.getMidiNumber(name);
       if (midi != null) {
         if (!name.contains("#")) {
-          notes.add(new VisualNote(name, midi, true));
+          switch (name) {
+            case "C4":
+              img = loadImage("Planets/mercury.png");
+              notes.add(new VisualNote(name, midi, true, img, (38.0f / 1920) * width));
+            break;	
+            case "D4":
+              img = loadImage("Planets/venus.png");
+              notes.add(new VisualNote(name, midi, true, img, (38.0f / 1920) * width));
+            break;	
+            case "E4":
+              img = loadImage("Planets/earth.png");
+              notes.add(new VisualNote(name, midi, true, img, (38.0f / 1920) * width));
+            break;	
+            case "F4":
+              img = loadImage("Planets/mars.png");
+              notes.add(new VisualNote(name, midi, true, img, (38.0f / 1920) * width));
+            break;	
+            case "G4":
+              img = loadImage("Planets/jupiter.png");
+              notes.add(new VisualNote(name, midi, true, img, (38.0f / 1920) * width));
+            break;	
+            case "A4":
+              img = loadImage("Planets/saturn.png");
+              notes.add(new VisualNote(name, midi, true, img, (42.0f / 1920) * width));
+            break;	
+            case "B4":
+              img = loadImage("Planets/uranus.png");
+              notes.add(new VisualNote(name, midi, true, img, (42.0f / 1920) * width));
+            break;	
+            case "C5":
+              img = loadImage("Planets/neptune.png");
+              notes.add(new VisualNote(name, midi, true, img, (38.0f / 1920) * width));
+            break;	
+          }
         } else {
-          notes.add(new VisualNote(name, midi, false));
+          img = loadImage("Planets/sun.png");
+          notes.add(new VisualNote(name, midi, false, img, (38.0f / 1920) * width));
         }
       }
     }

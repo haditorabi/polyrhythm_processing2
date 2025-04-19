@@ -2,7 +2,7 @@ public class VisualNote {
   private final String noteName;
   public final int midi;
   public float x, y;
-  private float size = 0;
+  private float size = (38.0f / 1920) * width;
   private color noteColor = color(255, 200);
   private boolean hasPlayed = false;
   public boolean isGlowing = false;
@@ -12,19 +12,22 @@ public class VisualNote {
   float bounceAmplitude = 1; // How strong the bounce is
   float bounceDamping = 0.025; // How quickly the bounce diminishes (0-1)
   float lastSinValue = 0; // To detect when sin changes sign
+  private PImage image;
 
 
-  public VisualNote(String name, int midi, boolean isActive) {
+  public VisualNote(String name, int midi, boolean isActive, PImage image, float size) {
     this.noteName = name;
     this.midi = midi;
+    this.image = image;
     this.isActive = isActive;
+    this.size = size;
     this.currentSize = (45.0f / 1920) * width;
   }
 
 public void updatePosition(float tf, int index, int total, float centerX, float centerY, float rotation) {
   float dist = getDist(index, total);
   float normalizedIndex = map(index, 2, total, total/1.25, total);
-  float angle = TWO_PI * tf * normalizedIndex;
+  float angle = PI * tf * normalizedIndex;
   
   // Calculate the sin value
   float sinValue = sin(angle);
@@ -46,7 +49,7 @@ public void updatePosition(float tf, int index, int total, float centerX, float 
   
   // Add the bounce to the y-position (delays the recovery after hit)
   // y = dist * -abs(sinValue) + centerY + (dist * bounceAmplitude * (1 - abs(sinValue)));
-  y = dist * -abs(sin(angle)) + centerY;
+  y = dist * sin(angle) + centerY;
   
   if (frameCount%24 == 0 && index == 0) {
     println(tf);
@@ -56,14 +59,20 @@ public void updatePosition(float tf, int index, int total, float centerX, float 
 
   public void draw(PGraphics pg) {
 
-    pg.fill(noteColor);
-    pg.noStroke();
-    pg.ellipse(x, y, size, size);
+    // pg.fill(noteColor);
+    // pg.noStroke();
+    // pg.ellipse(x, y, size, size);
+    if (image != null) {
+      pg.tint(255, 255);      // Draw image centered at x, y and scaled to note size
+      pg.imageMode(CENTER);
+      pg.image(image, x, y, size, size);
+      pg.noTint();
+    }
 
-    //pg.fill(255);
-    //pg.textAlign(CENTER, CENTER);
-    //pg.textSize(11);
-    //pg.text(noteName, x, y - size / 2 - 10);
+    // pg.fill(255);
+    // pg.textAlign(CENTER, CENTER);
+    // pg.textSize(11);
+    // pg.text(noteName, x, y - size / 2 - 10);
   }
 
   public void setGlowing(boolean state) {
@@ -74,7 +83,7 @@ public void updatePosition(float tf, int index, int total, float centerX, float 
     isActive = state;
   }
   public float getDist(int index, int total) {
-    return map(index, 0, total, (height /1.24) - (height/1.35 ), (height /1.24));
+    return map(index, 0, total, (height /1.24) - (height/1.45 ), (height /1.24) / 2);
   }
 
   public void setHasPlayed(boolean state) {
@@ -83,4 +92,8 @@ public void updatePosition(float tf, int index, int total, float centerX, float 
   public void setSize(int circleSize) {
     size = circleSize;
   }
+  public void setImage(PImage img) {
+    this.image = img;
+  }
+
 }

@@ -36,15 +36,15 @@ public class SpiralRenderer {
 
         arcs.add(new ArcData(
           width / 2.0f,
-        height / 1.21f,
-         c.getDist(i, circles.size()),
-          PI,
-           PI*2,
-           (16.0f / 1920) * width,
-           rgbX[0],
-           rgbX[1],
-           rgbX[2],
-           0.25f));
+          (height / 1.21f)/2,
+          c.getDist(i, circles.size()),
+          -PI,
+          PI*2,
+          (16.0f / 1920) * width,
+          rgbX[0],
+          rgbX[1],
+          rgbX[2],
+          0.25f));
       }
     }
     for (int i = 0; i < circles.size(); i++) {
@@ -56,37 +56,37 @@ public class SpiralRenderer {
       float minSize = (30.0f / 1920) * width;
       int glowDuration = 1000; // 1 second in milliseconds
 
-      if (c.isGlowing) {
-        float elapsed = millis() - c.glowStartTime;
-        if (elapsed < glowDuration) {
-          float t = constrain(elapsed / (float)glowDuration, 0, 1);
-          float eased = sin((t) * HALF_PI); // sin fade-out
-          c.currentSize = lerp(defaultSize, glowSize, eased);
-        } else {
-          c.currentSize = defaultSize;
-          c.isGlowing = false; // reset flag
-        }
-      } else if (!c.isActive) {
-        c.currentSize = minSize;
-      } else {
-        c.currentSize = defaultSize;
-      }
-      metaballData[i * 3 + 2] = c.currentSize;
+      // if (c.isGlowing) {
+      //   float elapsed = millis() - c.glowStartTime;
+      //   if (elapsed < glowDuration) {
+      //     float t = constrain(elapsed / (float)glowDuration, 0, 1);
+      //     float eased = sin((t) * HALF_PI); // sin fade-out
+      //     c.currentSize = lerp(defaultSize, glowSize, eased);
+      //   } else {
+      //     c.currentSize = defaultSize;
+      //     c.isGlowing = false; // reset flag
+      //   }
+      // } else if (!c.isActive) {
+      //   c.currentSize = minSize;
+      // } else {
+      //   c.currentSize = defaultSize;
+      // }
+      // metaballData[i * 3 + 2] = c.currentSize;
 
-      float[] glowingRgb = themeUtils.hexToRGB(theme.colors[0]);
+      // float[] glowingRgb = themeUtils.hexToRGB(theme.colors[0]);
 
-      float hue = map(i, 0, circles.size(), 20, 350);
-      color cl = color(hue, c.isActive ? c.isGlowing ? 75 : 85 : 60, c.isActive ? c.isGlowing ? 50 : 30 : 60);
-      String hexColor = "#" + hex(cl, 6);
-      float[] rgb3 = themeUtils.hexToRGB(hexColor);
+      // float hue = map(i, 0, circles.size(), 20, 350);
+      // color cl = color(hue, c.isActive ? c.isGlowing ? 75 : 85 : 60, c.isActive ? c.isGlowing ? 50 : 30 : 60);
+      // String hexColor = "#" + hex(cl, 6);
+      // float[] rgb3 = themeUtils.hexToRGB(hexColor);
       // if (c.isGlowing && c.isActive) {
       //  colorData[i * 3] = rgb2[0];
       //  colorData[i * 3 + 1] = rgb2[1];
       //  colorData[i * 3 + 2] = rgb2[2];
       //} else {
-      colorData[i * 3] = rgb3[0];
-      colorData[i * 3 + 1] = rgb3[1];
-      colorData[i * 3 + 2] = rgb3[2];
+      // colorData[i * 3] = rgb3[0];
+      // colorData[i * 3 + 1] = rgb3[1];
+      // colorData[i * 3 + 2] = rgb3[2];
       //}
     }
     float[] rgb2 = themeUtils.hexToRGB(theme.colors[2]);
@@ -127,10 +127,10 @@ public class SpiralRenderer {
     metaballShader.set("arcThicknesses", arcThicknesses);
     metaballShader.set("arcOpacities", arcOpacities);
     /////////////
-    metaballShader.set("lineStart", line.startX, line.startY);
-    metaballShader.set("lineEnd", line.endX, line.endY);
-    metaballShader.set("metaballs", metaballData, 3);
-    metaballShader.set("metaballColors", colorData, 3);
+    // metaballShader.set("lineStart", line.startX, line.startY);
+    // metaballShader.set("lineEnd", line.endX, line.endY);
+    // metaballShader.set("metaballs", metaballData, 3);
+    // metaballShader.set("metaballColors", colorData, 3);
     metaballShader.set("WIDTH", (float) width);
     metaballShader.set("HEIGHT", (float) height);
 
