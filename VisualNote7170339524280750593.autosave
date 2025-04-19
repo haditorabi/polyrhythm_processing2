@@ -10,7 +10,7 @@ public class VisualNote {
   public float currentSize;
   public long glowStartTime = -1;
   float bounceAmplitude = 1; // How strong the bounce is
-  float bounceDamping = 0.025; // How quickly the bounce diminishes (0-1)
+  float bounceDamping = 0.075; // How quickly the bounce diminishes (0-1)
   float lastSinValue = 0; // To detect when sin changes sign
 
 
@@ -45,8 +45,7 @@ public void updatePosition(float tf, int index, int total, float centerX, float 
   x = dist * cos(angle) + centerX;
   
   // Add the bounce to the y-position (delays the recovery after hit)
-  // y = dist * -abs(sinValue) + centerY + (dist * bounceAmplitude * (1 - abs(sinValue)));
-  y = dist * -abs(sin(angle)) + centerY;
+  y = dist * -abs(sinValue) + centerY + (dist * bounceAmplitude * (1 - abs(sinValue)));
   
   if (frameCount%24 == 0 && index == 0) {
     println(tf);
