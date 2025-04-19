@@ -26,8 +26,14 @@ public class VisualNote {
 
 public void updatePosition(float tf, int index, int total, float centerX, float centerY, float rotation) {
   float dist = getDist(index, total);
+
+  float[] orbitPeriods = {88, 225, 365, 687, 4333, 10759, 30687, 60190};
+  float period = orbitPeriods[index % orbitPeriods.length];
+
   float normalizedIndex = map(index, 2, total, total/1.25, total);
-  float angle = PI * tf * normalizedIndex;
+  // float angle = PI * tf * normalizedIndex;
+float scaledPeriod = period / 2000.0; // Makes all planets orbit 10x faster
+float angle = TWO_PI * (tf / scaledPeriod);
   
   // Calculate the sin value
   float sinValue = sin(angle);

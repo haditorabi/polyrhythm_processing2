@@ -29,7 +29,7 @@ public class SpiralRenderer {
       for (int i = 0; i < circlesSize; i++) {
         VisualNote c = circles.get(i);
 
-        float hueX = map(i, 0, circlesSize, 20, 350);
+        float hueX = map(i, 0, circlesSize, 190, 300);
         color clX = color(hueX, 80, 90);
         String hexColorX = "#" + hex(clX, 6);
         float[] rgbX = themeUtils.hexToRGB(hexColorX);
@@ -137,6 +137,25 @@ public class SpiralRenderer {
 
     buffer.rect(0, 0, width, height);
     buffer.resetShader();
+    if(arcBufferNeedsUpdate) {
+      for (int i = 0; i < 21 && i < arcs.size(); i++) {
+        ArcData arc = arcs.get(i);
+        PFont f = createFont("Helvetica", 12);
+        buffer.fill(150);
+        buffer.textSize(12);
+        buffer.textAlign(CENTER, CENTER);
+        buffer.textFont(f);
+        buffer.pushMatrix();
+        buffer.translate((width/2) , (height/1.21)/2 - arc.radius);     // Move to center
+        buffer.rotate(4*PI);       // Rotate around center
+        String[] planets = {"Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"};
+        String planet = planets[i % planets.length];
+
+        buffer.text(planet.toUpperCase(), 0,0);  // Draw at new rotated origin
+        buffer.popMatrix();
+      }
+    }
+
     for (int i = 0; i < circles.size(); i++) {
       VisualNote c = circles.get(i);
       c.draw(buffer);
