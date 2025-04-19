@@ -22,6 +22,7 @@ public class MidiNotePlayer {
           } else {
             noteSender.sendNote(note.noteName, 120, 1000, 1);
           }
+          note.setGlowing(true);
           // println("Playing note: " + note.noteName);
           note.hasPlayed = true;
           

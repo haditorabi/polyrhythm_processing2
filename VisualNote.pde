@@ -5,13 +5,17 @@ public class VisualNote {
   private float size = 0;
   private color noteColor = color(255, 200);
   private boolean hasPlayed = false;
-  private boolean isGlowing = false;
+  public boolean isGlowing = false;
   public boolean isActive = false;
+  public float currentSize;
+  public long glowStartTime = -1;
+
 
   public VisualNote(String name, int midi, boolean isActive) {
     this.noteName = name;
     this.midi = midi;
     this.isActive = isActive;
+    this.currentSize = (45.0f / 1920) * width;
   }
 
   public void updatePosition(float tf, int index, int total, float centerX, float centerY, float rotation) {
@@ -42,6 +46,7 @@ public class VisualNote {
 
   public void setGlowing(boolean state) {
     isGlowing = state;
+    glowStartTime = millis();
   }
   public void setActive(boolean state) {
     isActive = state;

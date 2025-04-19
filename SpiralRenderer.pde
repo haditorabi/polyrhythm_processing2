@@ -51,17 +51,27 @@ public class SpiralRenderer {
       VisualNote c = circles.get(i);
       metaballData[i * 3] = c.x;
       metaballData[i * 3 + 1] = c.y;
-      if (c.isGlowing) {
-        // c.setSize(25);
-        metaballData[i * 3 + 2] = (65.0f / 1920) * width ;
-      } else if (!c.isActive) {
-        // c.setSize(20);
-        metaballData[i * 3 + 2] = (30.0f / 1920) * width;
-      } else {
-        // c.setSize(25);
-        metaballData[i * 3 + 2] = (45.0f / 1920) * width;
-      }
+      float glowSize = (65.0f / 1920) * width;
+      float defaultSize = (45.0f / 1920) * width;
+      float minSize = (30.0f / 1920) * width;
+      int glowDuration = 1000; // 1 second in milliseconds
 
+      if (c.isGlowing) {
+        float elapsed = millis() - c.glowStartTime;
+        if (elapsed < glowDuration) {
+          float t = constrain(elapsed / (float)glowDuration, 0, 1);
+          float eased = sin((t) * HALF_PI); // sin fade-out
+          c.currentSize = lerp(defaultSize, glowSize, eased);
+        } else {
+          c.currentSize = defaultSize;
+          c.isGlowing = false; // reset flag
+        }
+      } else if (!c.isActive) {
+        c.currentSize = minSize;
+      } else {
+        c.currentSize = defaultSize;
+      }
+      metaballData[i * 3 + 2] = c.currentSize;
 
       float[] glowingRgb = themeUtils.hexToRGB(theme.colors[0]);
 
@@ -69,7 +79,7 @@ public class SpiralRenderer {
       color cl = color(hue, c.isActive ? c.isGlowing ? 75 : 85 : 60, c.isActive ? c.isGlowing ? 50 : 30 : 60);
       String hexColor = "#" + hex(cl, 6);
       float[] rgb3 = themeUtils.hexToRGB(hexColor);
-      //if (c.isGlowing && c.isActive) {
+      // if (c.isGlowing && c.isActive) {
       //  colorData[i * 3] = rgb2[0];
       //  colorData[i * 3 + 1] = rgb2[1];
       //  colorData[i * 3 + 2] = rgb2[2];
