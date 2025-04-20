@@ -51,7 +51,7 @@ public class AllowedNotes {
               notes.add(new VisualNote(name, midi, true, img, (38.0f / 1920) * width));
             break;	
             case "D4":
-              img = loadImage("Planets/venus.png");
+              img = loadImage("Planets/mars.png");
               notes.add(new VisualNote(name, midi, true, img, (38.0f / 1920) * width));
             break;	
             case "E4":
@@ -59,7 +59,7 @@ public class AllowedNotes {
               notes.add(new VisualNote(name, midi, true, img, (38.0f / 1920) * width));
             break;	
             case "F4":
-              img = loadImage("Planets/mars.png");
+              img = loadImage("Planets/venus.png");
               notes.add(new VisualNote(name, midi, true, img, (38.0f / 1920) * width));
             break;	
             case "G4":

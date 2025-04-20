@@ -12,14 +12,14 @@ public class SpiralRenderer {
   private float[] arcOpacities = new float[21];
   boolean arcBufferNeedsUpdate = true;
   PFont f;
-  PImage img;
+  PImage sun;
   public SpiralRenderer(int width, int height, Theme theme) {
     this.theme = theme;
     metaballShader = loadShader("frag.glsl", "vert.glsl");
     buffer = createGraphics(width, height, P3D);
     themeUtils = new ThemeUtils();
     f = createFont("Helvetica", (10.0f / 1280) * width);
-    img = loadImage("Planets/sun.png");
+    sun = loadImage("Planets/sun.png");
   }
 
   public void render(List<VisualNote> circles
@@ -141,10 +141,14 @@ public class SpiralRenderer {
 
     buffer.rect(0, 0, width, height);
     buffer.resetShader();
-    buffer.tint(255, 255);      // Draw image centered at x, y and scaled to note size
+    buffer.pushMatrix();
+    buffer.translate(width/2, (height/1.21f)/2);
+    buffer.rotate(radians(frameCount/3));       
+    buffer.tint(255, 255);
     buffer.imageMode(CENTER);
-    buffer.image(img, width/2, (height/1.21f)/2, height*.18f, height*.18f);
+    buffer.image(sun, 0,0, height*.18f, height*.18f);
     buffer.noTint();
+    buffer.popMatrix();
 
     if(arcBufferNeedsUpdate) {
       for (int i = 0; i < 21 && i < arcs.size(); i++) {
