@@ -32,7 +32,7 @@ public void updatePosition(float tf, int index, int total, float centerX, float 
 
   float normalizedIndex = map(index, 2, total, total/1.25, total);
   // float angle = PI * tf * normalizedIndex;
-float scaledPeriod = period / 2000.0; // Makes all planets orbit 10x faster
+float scaledPeriod = period / 60500.0; // Makes all planets orbit 10x faster
 float angle = TWO_PI * (tf / scaledPeriod);
   
   // Calculate the sin value

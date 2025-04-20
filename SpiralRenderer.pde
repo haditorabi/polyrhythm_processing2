@@ -11,11 +11,14 @@ public class SpiralRenderer {
   private float[] arcThicknesses = new float[21];
   private float[] arcOpacities = new float[21];
   boolean arcBufferNeedsUpdate = true;
+  PFont f;
   public SpiralRenderer(int width, int height, Theme theme) {
     this.theme = theme;
     metaballShader = loadShader("frag.glsl", "vert.glsl");
     buffer = createGraphics(width, height, P3D);
     themeUtils = new ThemeUtils();
+    f = createFont("Helvetica", 12);
+
   }
 
   public void render(List<VisualNote> circles
@@ -140,7 +143,6 @@ public class SpiralRenderer {
     if(arcBufferNeedsUpdate) {
       for (int i = 0; i < 21 && i < arcs.size(); i++) {
         ArcData arc = arcs.get(i);
-        PFont f = createFont("Helvetica", 12);
         buffer.fill(150);
         buffer.textSize(12);
         buffer.textAlign(CENTER, CENTER);
